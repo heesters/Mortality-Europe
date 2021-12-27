@@ -1,5 +1,6 @@
 # Deaths in Europe
 Total deaths in Europe:
+
 ![total](https://github.com/heesters/mortality-europe/blob/main/total.svg?raw=true&sanitize=true)
 
 Analysis of data from eurostat : https://ec.europa.eu/eurostat/

@@ -40,7 +40,7 @@ g.add_legend(title = '')
 for suffix in 'png svg'.split():
     g.savefig('by_country_sex.'+suffix, dpi=200, bbox_inches='tight', facecolor='white')
 
-df_total=df_clean.query("age == 'TOTAL' & sex == 'T'").groupby(['yearweek', 'year', 'week', 'covid_year'], as_index=False)['deaths'].sum()
+df_total=df_clean.query("age == 'TOTAL' & sex == 'T'").groupby(['yearweek', 'year', 'week', 'covid_year'], as_index=False)['deaths'].sum().reset_index(drop=True)
 df_total
 
 g = sns.FacetGrid(df_total, hue="covid_year", aspect=2,sharey=False)
