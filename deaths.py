@@ -19,7 +19,7 @@ countries = {}
 for country in pycountry.countries:
     countries[country.alpha_2] = country.name
 df_clean['country'] = [countries.get(country, 'Unknown code') for country in df_clean.geo_time]
-df_clean = df_clean[['country','sex','age','year','week','deaths']]
+df_clean = df_clean[['country','sex','age','yearweek','year','week','deaths']]
 #remove this line to get the full time period
 df_clean['covid_year']=df_clean['year'] >= '2020'
 df_clean.loc[df_clean['covid_year'] == False, 'covid_year'] = '2000-2019 +/- SD'
@@ -39,3 +39,13 @@ g.set(xlabel="month", ylabel = "deaths per week", xticks=np.arange(1, 53,(53/12)
 g.add_legend(title = '')
 for suffix in 'png svg'.split():
     g.savefig('by_country_sex.'+suffix, dpi=200, bbox_inches='tight', facecolor='white')
+
+df_total=df_clean.query("age == 'TOTAL' & sex == 'T'").groupby(['yearweek', 'year', 'week', 'covid_year'], as_index=False)['deaths'].sum()
+df_total
+
+g = sns.FacetGrid(df_total, hue="covid_year", aspect=2,sharey=False)
+g.map(sns.lineplot, 'week', 'deaths', alpha=.7, estimator='mean', ci='sd')
+g.set(xlabel="month", ylabel = "deaths per week", xticks=np.arange(1, 53,(53/12) ), xticklabels=months)
+g.add_legend(title = '')
+for suffix in 'png svg'.split():
+    g.savefig('total.'+suffix, dpi=200, bbox_inches='tight', facecolor='white')
