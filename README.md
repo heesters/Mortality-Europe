@@ -1,5 +1,6 @@
 # Deaths in Europe
 Total deaths in Europe:
+Recent data is not good due to some coutries lack of reporting.
 
 ![total](https://github.com/heesters/mortality-europe/blob/main/total.svg?raw=true&sanitize=true)
 
